@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "gw2api-client": "^4.2.4",
+    "gw2e-chat-codes": "^1.0.5",
+    "lodash": "^4.17.4",
     "node-gitter": "^2.0.5"
   }
 }

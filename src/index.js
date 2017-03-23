@@ -1,7 +1,7 @@
 import Gitter from 'node-gitter';
 import GitterBot from './bot';
 import config from '../config.json';
-import { authGet, authSet, help, rank, test } from './commands';
+import { authGet, authSet, chatlinks, help, rank, test } from './commands';
 
 // create gitter bot
 const gitter = new Gitter(config.token);
@@ -22,5 +22,7 @@ bot.onMessageCreated((room, message) => {
         authSet(room, message);
     } else if (message.text === '!rank') {
         rank(room, message);
+    } else {
+        chatlinks(room, message);
     }
 });
