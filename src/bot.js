@@ -25,6 +25,7 @@ export default class GitterBot {
     init() {
         this.gitter.currentUser().then(user => {
             console.log(`Running as ${user.username} (${user.id})`);
+            this.user = user;
 
             user.rooms().then(rooms => {
                 //console.log('rooms:', rooms.map(room => room.name).join(', '));
@@ -34,13 +35,7 @@ export default class GitterBot {
                     .forEach(room => this.join(room.url.substr(1)));
             });
 
-            this.user = user;
-
-            // this.gitter.faye.subscribe(`/api/v1/user/${user.id}/rooms`, (rooms) => {
-            //     console.log('rooms changed:');
-            //     console.log(rooms);
-            // });
-
+            // check for new 1to1 conversations every 10 seconds
             setInterval(() => {
                 user.rooms().then(rooms => {
                     rooms.filter(room => room.oneToOne && this.activeRooms.indexOf(room.id) === -1)
