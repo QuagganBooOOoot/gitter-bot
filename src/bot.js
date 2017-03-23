@@ -64,6 +64,7 @@ export default class GitterBot {
             switch(message.operation) {
                 case OPERATION_CREATE:
                     console.log(`[${room.name}] ${message.model.fromUser.username}: ${message.model.text}`);
+                    this.user.markAsRead(room.id, [message.model.id]);
                     return ignore || this.callHandlers(handlers.created, room, message.model);
                 case OPERATION_UPDATE:
                     return ignore || this.callHandlers(handlers.updated, room, message.model);
