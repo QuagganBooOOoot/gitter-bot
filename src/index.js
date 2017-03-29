@@ -1,7 +1,7 @@
 import Gitter from 'node-gitter';
 import GitterBot from './bot';
 import config from '../config.json';
-import { authGet, authSet, chatlinks, help, rank, shrug, test } from './commands';
+import { achievement, authGet, authSet, chatlinks, help, rank, shrug, test } from './commands';
 
 // create gitter bot
 const gitter = new Gitter(config.token);
@@ -16,6 +16,8 @@ bot.onMessageCreated((room, message) => {
         test(room, message);
     } else if (message.text === '!help') {
         help(room, message);
+    } else if (message.text.indexOf('!achievement ') === 0) {
+        achievement(room, message);
     } else if (message.text === '!auth') {
         authGet(room, message);
     } else if (message.text.indexOf('!auth ') === 0) {
