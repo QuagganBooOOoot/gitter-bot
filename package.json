@@ -15,7 +15,7 @@
     "babel-preset-stage-2": "^6.18.0"
   },
   "dependencies": {
-    "gw2api-client": "^4.2.4",
+    "gw2api-client": "^5.2.0",
     "gw2e-chat-codes": "^1.0.5",
     "lodash": "^4.17.4",
     "node-gitter": "^2.0.5"
