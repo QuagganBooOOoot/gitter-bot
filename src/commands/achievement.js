@@ -2,14 +2,16 @@ import { getApiKey, gw2 } from '../gw2'
 
 // shows achievement progress
 export function achievement(room, message) {
-    const achievementId = message.text.split(' ', 2)[1];
+    const achievementId = message.text.split(' ', 3)[1];
+    const userId = message.mentions[0] ? message.mentions[0].userId : message.fromUser.id;
+    const userName = message.mentions[0] ? message.mentions[0].screenName : message.fromUser.username;
 
     gw2.achievements().get(achievementId).then(achievement => {
-        getApiKey(message.fromUser.id).then(apiKey => {
+        getApiKey(userId).then(apiKey => {
             gw2.authenticate(apiKey).account().achievements().get(achievementId).then(progress => {
-                room.send(`**${achievement.name}**  \n${achievement.description}\n\nYour Progress: ${progress.current} / ${progress.max}`);
+                room.send(`**${achievement.name}**  \n${achievement.description}\n\n@${userName}'s progress: ${progress.current}/${progress.max}`);
             }).catch(error => {
-                room.send(`**${achievement.name}**  \n${achievement.description}\n\n*No progress on your account (${error})*`)
+                room.send(`**${achievement.name}**  \n${achievement.description}\n\n*No progress for @${userName} (${error})*`)
             })
         }).catch(error => {
             room.send(`**${achievement.name}**  \n${achievement.description}`)
