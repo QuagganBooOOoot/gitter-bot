@@ -13,7 +13,7 @@ export const getApiKey = userId =>
         )
     )
 
-export const setApiKey = userId =>
+export const setApiKey = (userId, apiKey) =>
     fs.writeFile(getApiKeyFileName(userId), apiKey)
 
 export function requireApiKey(userId, room, message) {
