@@ -11,16 +11,18 @@ export function achievement(room, message) {
     gw2.achievements().get(achievementId).then(achievement => {
         pMap(users, user =>
             getApiKey(user.id)
-                .then(apiKey => gw2.authenticate(apiKey).account().achievements().get(achievementId))
-                .then(progress => ({ user, progress }))
-                .catch(error => ({ user }))
+                .then(apiKey => 
+                    gw2.authenticate(apiKey).account().achievements().get(achievementId)
+                    .then(progress => ({ user, progress }))
+                    .catch(error => ({ user, error }))
+                ).catch(error => ({ user, error: 'Missing API key (use `!auth <API-KEY` to set)' }))
         ).then(users => {
             room.send(
                 `**${achievement.name}**  \n${achievement.description}\n\n`
                 + users.map(user =>
                     user.progress
                         ? `@${user.user.name}'s progress: ${user.progress.current}/${user.progress.max}`
-                        : `@${user.user.name}'s progress: Missing API key or wrong permissions.`
+                        : `@${user.user.name}'s progress: ${user.error}.`
                 ).join('\n  '));
         });
     }).catch(error => room.send(`Oah! Quaggan couldn't connect to the GW2 Api (${error}).`));
