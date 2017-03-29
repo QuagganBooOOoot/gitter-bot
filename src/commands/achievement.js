@@ -1,4 +1,5 @@
 import { getApiKey, gw2 } from '../gw2'
+import pMap from 'p-map';
 
 // shows achievement progress
 export function achievement(room, message) {
@@ -8,11 +9,11 @@ export function achievement(room, message) {
     message.mentions.forEach(user => users.push({ id: user.userId, name: user.screenName }));
 
     gw2.achievements().get(achievementId).then(achievement => {
-        Promise.all(
-            users.map(user => getApiKey(user.id)
+        pMap(users, user =>
+            getApiKey(user.id)
                 .then(apiKey => gw2.authenticate(apiKey).account().achievements().get(achievementId))
                 .then(progress => ({ user, progress }))
-                .catch(error => ({ user })))
+                .catch(error => ({ user }))
         ).then(users => {
             room.send(
                 `**${achievement.name}**  \n${achievement.description}\n\n`
