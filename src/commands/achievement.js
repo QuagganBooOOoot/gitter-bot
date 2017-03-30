@@ -18,7 +18,7 @@ export function achievement(room, message) {
                 ).catch(error => ({ user, error: 'Missing API key (use `!auth <API-KEY>` to set)' }))
         ).then(users => {
             room.send(
-                `**${achievement.name}**  \n${achievement.description}\n\n`
+                `**${achievement.name}**  \n${achievement.requirement}\n\n`
                 + users.map(user =>
                     user.progress
                         ? `@${user.user.name}'s progress: ${user.progress.current}/${user.progress.max}`
