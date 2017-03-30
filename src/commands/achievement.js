@@ -15,7 +15,7 @@ export function achievement(room, message) {
                     gw2.authenticate(apiKey).account().achievements().get(achievementId)
                     .then(progress => ({ user, progress }))
                     .catch(error => ({ user, error }))
-                ).catch(error => ({ user, error: 'Missing API key (use `!auth <API-KEY` to set)' }))
+                ).catch(error => ({ user, error: 'Missing API key (use `!auth <API-KEY>` to set)' }))
         ).then(users => {
             room.send(
                 `**${achievement.name}**  \n${achievement.description}\n\n`
