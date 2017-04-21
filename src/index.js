@@ -1,7 +1,7 @@
 import Gitter from 'node-gitter';
 import GitterBot from './bot';
 import config from '../config.json';
-import { achievement, authGet, authSet, chatlinks, help, rank, shrug, tableflip, test } from './commands';
+import { achievement, authGet, authSet, chatlinks, help, rank, shrug, tableflip, fire, heart, test } from './commands';
 
 // create gitter bot
 const gitter = new Gitter(config.token);
@@ -28,6 +28,10 @@ bot.onMessageCreated((room, message) => {
         shrug(room, message);
     } else if (message.text === '!tableflip' || message.text === '/tableflip') {
         tableflip(room, message);
+    } else if (message.text.trim() === ':fire:') {
+        fire(room, message);
+    } else if (message.text.trim() === ':heart:') {
+        heart(room, message);
     } else {
         chatlinks(room, message);
     }
