@@ -43,18 +43,20 @@ export function chatlinks(room, message) {
 
     // load details from the api
     Promise.all(map(groupBy(all, 'data.type'), (links, type) =>
-        gw2[type + 's']().many(links.map(link => link.data.id)).then(entries => ({ type, entries }))
+        type !== 'undefined' && gw2[type + 's']().many(links.map(link => link.data.id)).then(entries => ({ type, entries }))
     )).then(data => {
         // build lookup table
         data = keyBy(map(data, ({type, entries}) => ({ type, entries: keyBy(entries, 'id') })), 'type');
 
         // map all chat links to table rows
-        const rows = all.map(link => [
+        const rows = all.map(link => link.data !== false ? [
             `\`${link.raw}\``,
             link.data.type,
             link.data.id,
             text(link, data[link.data.type].entries[link.data.id]),
             externalLinks(link, data[link.data.type].entries[link.data.id])
+        ] : [
+            `\`${link.raw}\``, '*invalid*', '', '', ''
         ]);
 
         // send the table
