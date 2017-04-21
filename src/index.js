@@ -1,7 +1,7 @@
 import Gitter from 'node-gitter';
 import GitterBot from './bot';
 import config from '../config.json';
-import { achievement, authGet, authSet, chatlinks, help, rank, shrug, test } from './commands';
+import { achievement, authGet, authSet, chatlinks, help, rank, shrug, tableflip, test } from './commands';
 
 // create gitter bot
 const gitter = new Gitter(config.token);
@@ -26,6 +26,8 @@ bot.onMessageCreated((room, message) => {
         rank(room, message);
     } else if (message.text === '!shrug' || message.text === '/shrug') {
         shrug(room, message);
+    } else if (message.text === '!tableflip' || message.text === '/tableflip') {
+        tableflip(room, message);
     } else {
         chatlinks(room, message);
     }
