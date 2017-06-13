@@ -30,8 +30,8 @@ bot.onMessageCreated((room, message) => {
         tableflip(room, message);
     } else if (message.text.trim() === ':fire:') {
         fire(room, message);
-    } else if (message.text.trim() === ':heart:') {
-        heart(room, message);
+    } else if (message.text.trim() === ':heart:' || message.text.trim() === '<3') {
+         heart(room, message);
     } else {
         chatlinks(room, message);
     }
