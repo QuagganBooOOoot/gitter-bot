@@ -1,7 +1,7 @@
 import Gitter from 'node-gitter';
 import GitterBot from './bot';
 import config from '../config.json';
-import { achievement, authGet, authSet, chatlinks, help, rank, shrug, tableflip, fire, heart, test } from './commands';
+import { achievement, authGet, authSet, chatlinks, forum, help, rank, shrug, tableflip, fire, heart, test } from './commands';
 
 // create gitter bot
 const gitter = new Gitter(config.token);
@@ -34,5 +34,6 @@ bot.onMessageCreated((room, message) => {
         heart(room, message);
     } else {
         chatlinks(room, message);
+        forum(room, message);
     }
 });
