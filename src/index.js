@@ -1,7 +1,11 @@
 import Gitter from 'node-gitter';
+import mkdirp from 'mkdirp';
 import GitterBot from './bot';
 import config from '../config.json';
 import { achievement, authGet, authSet, chatlinks, forum, help, rank, shrug, tableflip, fire, heart, test } from './commands';
+
+// create directories
+mkdirp('./var/users');
 
 // create gitter bot
 const gitter = new Gitter(config.token);

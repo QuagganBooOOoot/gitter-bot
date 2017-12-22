@@ -4,7 +4,7 @@ import fs from 'fs';
 
 export const gw2 = gw2client();
 
-const getApiKeyFileName = userId => path.join(__dirname, '..', 'users', userId);
+const getApiKeyFileName = userId => path.join(__dirname, '..', 'var', 'users', userId);
 
 export const getApiKey = userId =>
     new Promise((resolve, reject) =>
