@@ -12,7 +12,10 @@ This is a gitter bot for [arenanet/api-cdi](https://gitter.im/arenanet/api-cdi).
       "rooms": [
           "arenanet/api-cdi",
           "..."
-      ]
+      ],
+      "forum": {
+          "api-development": ["arenanet/api-cdi"]
+      }
     }
     ```
 

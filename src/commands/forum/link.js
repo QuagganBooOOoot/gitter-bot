@@ -1,7 +1,7 @@
 const REGEX_DISCUSSION = /^(https:\/\/en-forum\.guildwars2\.com\/discussion\/[0-9]+)/;
 const REGEX_COMMENT = /^(https:\/\/en-forum\.guildwars2\.com\/discussion\/comment\/([0-9]+))/
 
-export function forum(room, message) {
+export function forumLink(room, message) {
     const discussions = message.urls
         .map(url => url.url.match(REGEX_DISCUSSION))
         .filter(url => url !== null)
@@ -19,7 +19,7 @@ export function forum(room, message) {
     Promise.all(comments).then(data => handleComments(room, data));
 }
 
-function handleDiscussion(room, discussions) {
+export function handleDiscussion(room, discussions) {
     discussions.forEach(discussion => {
         const response = 
             `> **[${discussion.Discussion.Name}](${discussion.Discussion.Url})**  \n` + 

@@ -2,7 +2,7 @@ import Gitter from 'node-gitter';
 import mkdirp from 'mkdirp';
 import GitterBot from './bot';
 import config from '../config.json';
-import { achievement, authGet, authSet, chatlinks, forum, help, rank, shrug, tableflip, fire, heart, test } from './commands';
+import { achievement, authGet, authSet, chatlinks, forumLink, forumNew, help, rank, shrug, tableflip, fire, heart, test } from './commands';
 
 // create directories
 mkdirp('./var/users');
@@ -13,6 +13,9 @@ const bot = new GitterBot(gitter);
 
 // join all rooms configured in the config
 config.rooms.forEach(room => bot.join(room));
+
+// wait 5s, then check for new forum posts
+setTimeout(() => forumNew(bot), 5000) 
 
 // handle new messages
 bot.onMessageCreated((room, message) => {
@@ -38,6 +41,6 @@ bot.onMessageCreated((room, message) => {
         heart(room, message);
     } else {
         chatlinks(room, message);
-        forum(room, message);
+        forumLink(room, message);
     }
 });
