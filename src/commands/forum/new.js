@@ -72,8 +72,9 @@ function tick(bot, known) {
                                         ? 'New discussion'
                                         : `${discussions.length} new discussions`
     
-                                    room.send(`${text} in ${link}:`);
-                                    handleDiscussion(room, discussions);
+                                    room.send(`${text} in ${link}:`).then(
+                                        () => handleDiscussion(room, discussions)
+                                    );
                                 }
                             );
                         }
